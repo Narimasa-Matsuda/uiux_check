@@ -3,7 +3,9 @@ import path from "path";
 import type { DiagnosisResult } from "./types";
 import { getLeadTemperature } from "./types";
 
-const DATA_DIR = path.join(process.cwd(), ".data");
+const DATA_DIR = process.env.VERCEL
+  ? path.join("/tmp", ".data")
+  : path.join(process.cwd(), ".data");
 
 export interface HistoryEntry {
   id: string;

@@ -3,7 +3,9 @@ import path from "path";
 import crypto from "crypto";
 import type { DiagnosisResult } from "./types";
 
-const LEADS_DIR = path.join(process.cwd(), ".data", "leads");
+const LEADS_DIR = process.env.VERCEL
+  ? path.join("/tmp", ".data", "leads")
+  : path.join(process.cwd(), ".data", "leads");
 
 export interface LeadEntry {
   token: string;
