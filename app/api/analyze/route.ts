@@ -1,5 +1,7 @@
 import type { AnalyzeRequest, AnalyzeResponse, DiagnosisResult } from "@/lib/types";
 
+export const maxDuration = 60;
+
 const DUMMY_RESULT: DiagnosisResult = {
   site_type: "corporate",
   overall_score: 62,
