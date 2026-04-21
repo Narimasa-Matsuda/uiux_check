@@ -262,6 +262,7 @@ Cold : overall_score >= 76
 | `ZOHO_CLIENT_SECRET` | Zoho連携 | Zoho OAuthクライアントシークレット |
 | `ZOHO_REFRESH_TOKEN` | Zoho連携 | Zoho OAuthリフレッシュトークン |
 | `ZOHO_DOMAIN` | Zoho連携 | Zohoドメイン（`com` / `jp` / `eu`）。デフォルト`com` |
+| `REDIS_URL` | Redis連携 | Redis接続URL。設定時はリードデータをRedisに保存（Vercel必須） |
 
 ## Zoho CRM フィールドマッピング
 
@@ -289,10 +290,19 @@ Cold : overall_score >= 76
 - **スタイル**: Tailwind CSS v4
 - **AI**: OpenAI gpt-4o（vision）
 - **HTML解析**: cheerio
-- **スクリーンショット**: Playwright（chromium）
+- **スクリーンショット**: Playwright（chromium）+ `@sparticuz/chromium-min`（Vercel用）
 - **メール送信**: nodemailer（SMTP）
 - **CRM**: Zoho CRM API v2
-- **データ保存**: JSONファイル（`.data/`）
+- **データ保存**: Redis（`REDIS_URL`設定時）/ JSONファイル（ローカル開発）
+
+## Vercel デプロイ対応
+
+| 問題 | 対応 |
+|------|------|
+| Playwright の Chromium が存在しない | `@sparticuz/chromium-min` + `VERCEL` 環境変数で分岐 |
+| `/var/task/` が読み取り専用 | `VERCEL` 環境変数が設定されている場合は `/tmp/.data` を使用 |
+| サーバーレス間でファイルが共有されない | `REDIS_URL` 設定時はリードデータを Redis に保存 |
+| 関数タイムアウト | `maxDuration = 60`（Pro プラン以上で有効） |
 
 ## 開発フェーズ
 
@@ -302,4 +312,5 @@ Cold : overall_score >= 76
 | Phase 2 | OpenAI連携 + Playwright | ✅ 完了（`OPENAI_API_KEY`設定で有効化） |
 | Phase 3 | Zoho CRM連携 | ✅ 完了（`ZOHO_*`設定で有効化） |
 | Phase 4 | メール導線 + トークン認証 | ✅ 完了（`SMTP_*`設定で有効化） |
-| Phase 5 | 管理者画面（月別履歴） | ✅ 完了（`ADMIN_PASSWORD`設定で有効化） |
+| Phase 5 | 管理者画面（月別履歴 + リード一覧） | ✅ 完了（`ADMIN_PASSWORD`設定で有効化） |
+| Phase 6 | Vercel デプロイ対応（Playwright・Redis） | ✅ 完了 |
