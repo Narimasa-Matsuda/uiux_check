@@ -26,7 +26,7 @@ export async function POST(request: Request): Promise<Response> {
     const timestamp = new Date().toISOString();
     const smtpConfigured = Boolean(process.env.SMTP_HOST && process.env.SMTP_USER && process.env.SMTP_PASS);
 
-    saveLeadEntry({
+    await saveLeadEntry({
       token,
       email: body.email,
       company: body.company ?? "",
@@ -53,7 +53,7 @@ export async function POST(request: Request): Promise<Response> {
           diagnosedUrl: body.diagnosedUrl,
         });
       } catch (emailErr) {
-        const rolledBack = removeLeadByToken(token);
+        const rolledBack = await removeLeadByToken(token);
         console.error("[lead] email send failed:", emailErr);
         if (!rolledBack) {
           console.error("[lead] rollback failed for token:", token);

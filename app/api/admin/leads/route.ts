@@ -18,10 +18,10 @@ export async function GET(request: Request): Promise<Response> {
     if (!/^\d{4}-\d{2}$/.test(month)) {
       return Response.json({ error: "Invalid month format" }, { status: 400 });
     }
-    const leads = getLeadsByMonth(month);
+    const leads = await getLeadsByMonth(month);
     return Response.json({ month, leads });
   }
 
-  const months = getLeadMonths();
+  const months = await getLeadMonths();
   return Response.json({ months });
 }

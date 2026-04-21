@@ -8,7 +8,7 @@ export async function GET(request: Request): Promise<Response> {
     return Response.json({ error: "Invalid token" }, { status: 400 });
   }
 
-  const entry = findLeadByToken(token);
+  const entry = await findLeadByToken(token);
   if (!entry) {
     return Response.json({ error: "Not found" }, { status: 404 });
   }
