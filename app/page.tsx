@@ -1,351 +1,352 @@
 import Link from "next/link";
 import ParticlesWrapper from "./components/ParticlesWrapper";
 
-// ── Gradient Button ───────────────────────────────────────────────────────────
-
 function GradientButton({ href, children }: { href: string; children: React.ReactNode }) {
   return (
     <Link
       href={href}
-      className="inline-block text-white px-10 py-4 rounded-full text-base font-semibold transition-opacity hover:opacity-90 shadow-lg"
-      style={{ background: "linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)" }}
+      className="inline-flex min-w-[194px] items-center justify-center rounded-full px-10 py-3.5 text-[1.05rem] font-black tracking-[-0.02em] text-white shadow-[0_14px_34px_rgba(95,106,255,0.22)] transition-transform duration-200 hover:-translate-y-0.5"
+      style={{ background: "linear-gradient(90deg, #8b46ff 0%, #2f9bff 100%)" }}
     >
       {children}
     </Link>
   );
 }
 
-// ── Step Illustrations ────────────────────────────────────────────────────────
-
-function IllustStep1() {
+function HeroLogo() {
   return (
-    <svg viewBox="0 0 200 140" fill="none" className="w-full max-w-[200px] mx-auto my-6">
-      {/* Browser window */}
-      <rect x="20" y="10" width="160" height="110" rx="10" fill="white" stroke="#e0deff" strokeWidth="2"/>
-      {/* Browser top bar */}
-      <rect x="20" y="10" width="160" height="28" rx="10" fill="#f5f3ff"/>
-      <rect x="20" y="28" width="160" height="10" fill="#f5f3ff"/>
-      {/* Traffic lights */}
-      <circle cx="38" cy="24" r="5" fill="#ff6b6b" opacity="0.8"/>
-      <circle cx="52" cy="24" r="5" fill="#ffd93d" opacity="0.8"/>
-      <circle cx="66" cy="24" r="5" fill="#6bcb77" opacity="0.8"/>
-      {/* Address bar */}
-      <rect x="80" y="16" width="90" height="16" rx="8" fill="white" stroke="#e0deff" strokeWidth="1.5"/>
-      <text x="91" y="27" fill="#9ca3af" fontSize="7">https://</text>
-      {/* Content area - URL input */}
-      <rect x="32" y="50" width="136" height="36" rx="6" fill="#f5f3ff" stroke="#e0deff" strokeWidth="1.5"/>
-      <text x="68" y="72" fill="#6366f1" fontSize="9" fontWeight="600">URLを入力してください</text>
-      {/* Search icon */}
-      <circle cx="47" cy="68" r="7" stroke="#a5b4fc" strokeWidth="2"/>
-      <line x1="52" y1="73" x2="56" y2="77" stroke="#a5b4fc" strokeWidth="2" strokeLinecap="round"/>
-      {/* Button */}
-      <rect x="60" y="96" width="80" height="18" rx="9" fill="url(#step1grad)"/>
-      <text x="100" y="109" textAnchor="middle" fill="white" fontSize="8" fontWeight="600">診断を開始</text>
-      <defs>
-        <linearGradient id="step1grad" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#6366f1"/>
-          <stop offset="100%" stopColor="#8b5cf6"/>
-        </linearGradient>
-      </defs>
-    </svg>
-  );
-}
-
-function IllustStep2() {
-  return (
-    <svg viewBox="0 0 200 140" fill="none" className="w-full max-w-[200px] mx-auto my-6">
-      {/* Main panel */}
-      <rect x="15" y="10" width="170" height="120" rx="10" fill="white" stroke="#e0deff" strokeWidth="2"/>
-      {/* Top bar */}
-      <rect x="15" y="10" width="170" height="22" rx="10" fill="#f5f3ff"/>
-      <rect x="15" y="22" width="170" height="10" fill="#f5f3ff"/>
-      <circle cx="29" cy="21" r="4" fill="#d0d0f0"/>
-      <circle cx="41" cy="21" r="4" fill="#d0d0f0"/>
-      <text x="100" y="25" textAnchor="middle" fill="#9ca3af" fontSize="7">AI分析中...</text>
-      {/* Bar chart */}
-      <rect x="30" y="90" width="14" height="30" rx="3" fill="#6366f1" opacity="0.9"/>
-      <rect x="50" y="75" width="14" height="45" rx="3" fill="#8b5cf6" opacity="0.9"/>
-      <rect x="70" y="60" width="14" height="60" rx="3" fill="#6366f1" opacity="0.7"/>
-      <rect x="90" y="80" width="14" height="40" rx="3" fill="#a78bfa" opacity="0.8"/>
-      <rect x="110" y="50" width="14" height="70" rx="3" fill="#6366f1" opacity="0.9"/>
-      <line x1="28" y1="122" x2="130" y2="122" stroke="#e0deff" strokeWidth="1.5"/>
-      {/* Score circle */}
-      <circle cx="160" cy="75" r="25" fill="#f5f3ff" stroke="#6366f1" strokeWidth="2"/>
-      <circle cx="160" cy="75" r="25" fill="none" stroke="#6366f1" strokeWidth="4"
-        strokeDasharray="94 157" strokeLinecap="round" transform="rotate(-90 160 75)" opacity="0.3"/>
-      <text x="160" y="79" textAnchor="middle" fill="#6366f1" fontSize="14" fontWeight="800">AI</text>
-      {/* Processing dots */}
-      <circle cx="140" cy="110" r="4" fill="#6366f1" opacity="0.9"/>
-      <circle cx="152" cy="110" r="4" fill="#8b5cf6" opacity="0.6"/>
-      <circle cx="164" cy="110" r="4" fill="#a78bfa" opacity="0.4"/>
-    </svg>
-  );
-}
-
-function IllustStep3() {
-  return (
-    <svg viewBox="0 0 200 140" fill="none" className="w-full max-w-[200px] mx-auto my-6">
-      {/* Device frame */}
-      <rect x="50" y="8" width="100" height="124" rx="12" fill="#f5f3ff" stroke="#e0deff" strokeWidth="2"/>
-      <rect x="55" y="18" width="90" height="90" rx="6" fill="white"/>
-      {/* Score display */}
-      <circle cx="100" cy="48" r="24" fill="none" stroke="#e0deff" strokeWidth="5"/>
-      <circle cx="100" cy="48" r="24" fill="none" stroke="url(#scoreGrad)" strokeWidth="5"
-        strokeDasharray="100 151" strokeLinecap="round" transform="rotate(-90 100 48)"/>
-      <text x="100" y="44" textAnchor="middle" fill="#6366f1" fontSize="16" fontWeight="800">72</text>
-      <text x="100" y="56" textAnchor="middle" fill="#9ca3af" fontSize="7">/100</text>
-      {/* Score bars */}
-      <text x="60" y="80" fill="#9ca3af" fontSize="6">第一印象</text>
-      <rect x="60" y="83" width="70" height="4" rx="2" fill="#e0deff"/>
-      <rect x="60" y="83" width="50" height="4" rx="2" fill="#6366f1"/>
-      <text x="60" y="96" fill="#9ca3af" fontSize="6">情報設計</text>
-      <rect x="60" y="99" width="70" height="4" rx="2" fill="#e0deff"/>
-      <rect x="60" y="99" width="60" height="4" rx="2" fill="#8b5cf6"/>
-      <text x="60" y="112" fill="#9ca3af" fontSize="6">CTA</text>
-      <rect x="60" y="115" width="70" height="4" rx="2" fill="#e0deff"/>
-      <rect x="60" y="115" width="35" height="4" rx="2" fill="#a78bfa"/>
-      {/* Home button */}
-      <circle cx="100" cy="122" r="5" fill="#e0deff"/>
-      <defs>
-        <linearGradient id="scoreGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#6366f1"/>
-          <stop offset="100%" stopColor="#8b5cf6"/>
-        </linearGradient>
-      </defs>
-    </svg>
-  );
-}
-
-// ── Feature Icons ─────────────────────────────────────────────────────────────
-
-function IconFirstImpression() {
-  return (
-    <svg viewBox="0 0 80 80" fill="none" className="w-16 h-16 mx-auto">
-      <rect x="10" y="15" width="60" height="45" rx="6" fill="#ede9fe" stroke="#c4b5fd" strokeWidth="1.5"/>
-      <rect x="10" y="15" width="60" height="16" rx="6" fill="#ddd6fe"/>
-      <rect x="10" y="25" width="60" height="6" fill="#ddd6fe"/>
-      <circle cx="20" cy="23" r="3.5" fill="#f87171" opacity="0.8"/>
-      <circle cx="30" cy="23" r="3.5" fill="#fbbf24" opacity="0.8"/>
-      <circle cx="40" cy="23" r="3.5" fill="#34d399" opacity="0.8"/>
-      <rect x="18" y="36" width="28" height="18" rx="3" fill="#c4b5fd" opacity="0.5"/>
-      <path d="M24 48 L30 42 L36 46 L40 42" stroke="#7c3aed" strokeWidth="1.5" strokeLinecap="round"/>
-      <rect x="50" y="36" width="14" height="6" rx="2" fill="#7c3aed" opacity="0.6"/>
-      <rect x="50" y="45" width="14" height="4" rx="2" fill="#c4b5fd"/>
-      <rect x="50" y="52" width="10" height="4" rx="2" fill="#c4b5fd"/>
-      <circle cx="62" cy="20" r="8" fill="#f97316"/>
-      <path d="M59 20h6M62 17v6" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-    </svg>
-  );
-}
-
-function IconInfoArch() {
-  return (
-    <svg viewBox="0 0 80 80" fill="none" className="w-16 h-16 mx-auto">
-      <rect x="28" y="10" width="24" height="14" rx="4" fill="#7c3aed" opacity="0.9"/>
-      <text x="40" y="21" textAnchor="middle" fill="white" fontSize="7" fontWeight="bold">TOP</text>
-      <rect x="10" y="32" width="22" height="12" rx="4" fill="#8b5cf6" opacity="0.8"/>
-      <rect x="48" y="32" width="22" height="12" rx="4" fill="#8b5cf6" opacity="0.8"/>
-      <rect x="8" y="52" width="16" height="12" rx="3" fill="#a78bfa" opacity="0.7"/>
-      <rect x="28" y="52" width="16" height="12" rx="3" fill="#a78bfa" opacity="0.7"/>
-      <rect x="56" y="52" width="16" height="12" rx="3" fill="#a78bfa" opacity="0.7"/>
-      <line x1="40" y1="24" x2="21" y2="32" stroke="#7c3aed" strokeWidth="1.5" opacity="0.6"/>
-      <line x1="40" y1="24" x2="59" y2="32" stroke="#7c3aed" strokeWidth="1.5" opacity="0.6"/>
-      <line x1="21" y1="44" x2="16" y2="52" stroke="#8b5cf6" strokeWidth="1.5" opacity="0.5"/>
-      <line x1="21" y1="44" x2="36" y2="52" stroke="#8b5cf6" strokeWidth="1.5" opacity="0.5"/>
-      <line x1="59" y1="44" x2="64" y2="52" stroke="#8b5cf6" strokeWidth="1.5" opacity="0.5"/>
-    </svg>
-  );
-}
-
-function IconCTA() {
-  return (
-    <svg viewBox="0 0 80 80" fill="none" className="w-16 h-16 mx-auto">
-      <rect x="12" y="28" width="56" height="22" rx="11" fill="url(#ctaGrad)"/>
-      <text x="40" y="43" textAnchor="middle" fill="white" fontSize="10" fontWeight="bold">ACTION</text>
-      {/* Cursor/hand */}
-      <path d="M54 54 C54 54 60 62 56 68" stroke="#f97316" strokeWidth="2.5" strokeLinecap="round"/>
-      <path d="M56 68 C54 72 58 74 60 70 L66 58" stroke="#f97316" strokeWidth="2" strokeLinecap="round"/>
-      {/* Sparkles */}
-      <path d="M14 20 L16 14 L18 20 L24 22 L18 24 L16 30 L14 24 L8 22 Z" fill="#fbbf24" opacity="0.8"/>
-      <path d="M58 16 L59.5 12 L61 16 L65 17.5 L61 19 L59.5 23 L58 19 L54 17.5 Z" fill="#c4b5fd" opacity="0.8"/>
-      <defs>
-        <linearGradient id="ctaGrad" x1="0" y1="0" x2="1" y2="0">
-          <stop offset="0%" stopColor="#6366f1"/>
-          <stop offset="100%" stopColor="#8b5cf6"/>
-        </linearGradient>
-      </defs>
-    </svg>
-  );
-}
-
-function IconTrust() {
-  return (
-    <svg viewBox="0 0 80 80" fill="none" className="w-16 h-16 mx-auto">
-      <rect x="12" y="14" width="56" height="40" rx="6" fill="#ede9fe" stroke="#c4b5fd" strokeWidth="1.5"/>
-      <rect x="18" y="22" width="44" height="10" rx="3" fill="#ddd6fe"/>
-      <rect x="18" y="36" width="28" height="6" rx="2" fill="#e8e4ff"/>
-      <rect x="18" y="45" width="20" height="5" rx="2" fill="#e8e4ff"/>
-      <circle cx="56" cy="60" r="14" fill="url(#trustGrad)"/>
-      <path d="M50 60 L54.5 65 L62 54" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-      <defs>
-        <linearGradient id="trustGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#6366f1"/>
-          <stop offset="100%" stopColor="#8b5cf6"/>
-        </linearGradient>
-      </defs>
-    </svg>
-  );
-}
-
-function IconNav() {
-  return (
-    <svg viewBox="0 0 80 80" fill="none" className="w-16 h-16 mx-auto">
-      <circle cx="40" cy="40" r="28" stroke="#ddd6fe" strokeWidth="2.5"/>
-      <circle cx="40" cy="40" r="18" stroke="#c4b5fd" strokeWidth="2"/>
-      <circle cx="40" cy="40" r="8" fill="url(#navGrad)"/>
-      <line x1="40" y1="10" x2="40" y2="20" stroke="#c4b5fd" strokeWidth="2" strokeLinecap="round"/>
-      <line x1="40" y1="60" x2="40" y2="70" stroke="#c4b5fd" strokeWidth="2" strokeLinecap="round"/>
-      <line x1="10" y1="40" x2="20" y2="40" stroke="#c4b5fd" strokeWidth="2" strokeLinecap="round"/>
-      <line x1="60" y1="40" x2="70" y2="40" stroke="#c4b5fd" strokeWidth="2" strokeLinecap="round"/>
-      <path d="M37 37 L46 40 L37 43 Z" fill="white"/>
-      <defs>
-        <linearGradient id="navGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#6366f1"/>
-          <stop offset="100%" stopColor="#8b5cf6"/>
-        </linearGradient>
-      </defs>
-    </svg>
-  );
-}
-
-function IconPriority() {
-  return (
-    <svg viewBox="0 0 80 80" fill="none" className="w-16 h-16 mx-auto">
-      <path d="M40 10 L64 58 H16 Z" fill="#ede9fe"/>
-      <path d="M40 18 L58 54 H22 Z" fill="#c4b5fd" opacity="0.6"/>
-      <path d="M40 26 L53 52 H27 Z" fill="#8b5cf6" opacity="0.7"/>
-      <path d="M40 34 L48 50 H32 Z" fill="url(#prioGrad)"/>
-      <circle cx="40" cy="10" r="6" fill="#f97316"/>
-      <text x="40" y="14" textAnchor="middle" fill="white" fontSize="7" fontWeight="bold">1</text>
-      <line x1="12" y1="64" x2="68" y2="64" stroke="#ddd6fe" strokeWidth="2" strokeLinecap="round"/>
-      <defs>
-        <linearGradient id="prioGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor="#6366f1"/>
-          <stop offset="100%" stopColor="#8b5cf6"/>
-        </linearGradient>
-      </defs>
-    </svg>
-  );
-}
-
-// ── Crystal Decorations ───────────────────────────────────────────────────────
-
-function CrystalLeft() {
-  return (
-    <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/4 opacity-50 pointer-events-none select-none" aria-hidden>
-      <svg viewBox="0 0 220 300" fill="none" className="w-44 md:w-64">
-        <path d="M110 20 L200 90 L170 240 L50 240 L20 90 Z" fill="url(#cll1)" opacity="0.5"/>
-        <path d="M110 20 L200 90 L110 55 Z" fill="url(#cll2)" opacity="0.85"/>
-        <path d="M110 20 L20 90 L110 55 Z" fill="url(#cll3)" opacity="0.6"/>
-        <path d="M200 90 L170 240 L110 55 Z" fill="url(#cll4)" opacity="0.4"/>
-        <path d="M20 90 L50 240 L110 55 Z" fill="url(#cll5)" opacity="0.3"/>
+    <div className="mx-auto mb-6 flex w-full max-w-[900px] flex-col items-center">
+      <svg viewBox="0 0 860 240" className="w-full max-w-[660px]" aria-label="UIUX">
         <defs>
-          <linearGradient id="cll1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#c7d2fe"/><stop offset="100%" stopColor="#818cf8"/></linearGradient>
-          <linearGradient id="cll2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#e0e7ff"/><stop offset="100%" stopColor="#a5b4fc"/></linearGradient>
-          <linearGradient id="cll3" x1="1" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#ddd6fe"/><stop offset="100%" stopColor="#c4b5fd"/></linearGradient>
-          <linearGradient id="cll4" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#818cf8"/><stop offset="100%" stopColor="#6366f1"/></linearGradient>
-          <linearGradient id="cll5" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stopColor="#a5b4fc"/><stop offset="100%" stopColor="#818cf8"/></linearGradient>
+          <linearGradient id="ui-fill" x1="90" y1="38" x2="332" y2="222" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stopColor="#aeb8ff" />
+            <stop offset="18%" stopColor="#707dff" />
+            <stop offset="47%" stopColor="#4040aa" />
+            <stop offset="77%" stopColor="#646fff" />
+            <stop offset="100%" stopColor="#c2c8ff" />
+          </linearGradient>
+          <linearGradient id="ux-fill" x1="520" y1="28" x2="760" y2="228" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stopColor="#ffd8a8" />
+            <stop offset="18%" stopColor="#ffa74d" />
+            <stop offset="46%" stopColor="#f17311" />
+            <stop offset="72%" stopColor="#d95f06" />
+            <stop offset="100%" stopColor="#ffd5a4" />
+          </linearGradient>
+          <linearGradient id="slash-fill" x1="350" y1="16" x2="426" y2="214" gradientUnits="userSpaceOnUse">
+            <stop offset="0%" stopColor="#c7c7c7" />
+            <stop offset="42%" stopColor="#6a6a6a" />
+            <stop offset="100%" stopColor="#e1e1e1" />
+          </linearGradient>
+          <clipPath id="u-clip">
+            <path d="M70 48 H130 V145 C130 164 141 176 160 176 C180 176 192 164 192 145 V48 H252 V149 C252 200 217 223 160 223 C104 223 70 200 70 149 Z" />
+          </clipPath>
+          <clipPath id="x-clip">
+            <path d="M590 48 H650 L693 102 L736 48 H802 L725 134 L806 222 H744 L693 167 L641 222 H576 L659 134 Z" />
+          </clipPath>
+          <pattern id="ui-facets" width="44" height="44" patternUnits="userSpaceOnUse" patternTransform="rotate(18)">
+            <path d="M0 0 L22 0 L11 22 Z" fill="rgba(255,255,255,0.34)" />
+            <path d="M22 0 L44 0 L33 22 Z" fill="rgba(54,44,148,0.20)" />
+            <path d="M0 44 L22 44 L11 22 Z" fill="rgba(47,64,188,0.22)" />
+            <path d="M22 44 L44 44 L33 22 Z" fill="rgba(255,255,255,0.10)" />
+          </pattern>
+          <pattern id="ux-facets" width="44" height="44" patternUnits="userSpaceOnUse" patternTransform="rotate(16)">
+            <path d="M0 0 L22 0 L11 22 Z" fill="rgba(255,255,255,0.30)" />
+            <path d="M22 0 L44 0 L33 22 Z" fill="rgba(170,74,8,0.18)" />
+            <path d="M0 44 L22 44 L11 22 Z" fill="rgba(255,255,255,0.12)" />
+            <path d="M22 44 L44 44 L33 22 Z" fill="rgba(194,92,18,0.20)" />
+          </pattern>
         </defs>
+
+        <g transform="translate(8 6)">
+          <path d="M70 48 H130 V145 C130 164 141 176 160 176 C180 176 192 164 192 145 V48 H252 V149 C252 200 217 223 160 223 C104 223 70 200 70 149 Z" fill="url(#ui-fill)" />
+          <g clipPath="url(#u-clip)">
+            <rect x="68" y="44" width="188" height="184" fill="url(#ui-facets)" opacity="0.9" />
+            <path d="M78 48 L110 102 L92 222" stroke="rgba(40,42,146,0.28)" strokeWidth="2" />
+            <path d="M120 48 L157 112 L160 222" stroke="rgba(255,255,255,0.28)" strokeWidth="2" />
+            <path d="M191 48 L164 118 L205 222" stroke="rgba(41,53,194,0.24)" strokeWidth="2" />
+            <path d="M224 48 L198 114 L238 222" stroke="rgba(255,255,255,0.22)" strokeWidth="2" />
+          </g>
+
+          <path d="M284 48 H340 V222 H284 Z" fill="url(#ui-fill)" />
+          <rect x="297" y="48" width="30" height="174" fill="url(#ui-facets)" opacity="0.88" />
+          <path d="M302 48 L326 116 L304 222" stroke="rgba(40,42,146,0.24)" strokeWidth="2" />
+          <path d="M320 48 L312 122 L326 222" stroke="rgba(255,255,255,0.24)" strokeWidth="2" />
+
+          <path d="M392 218 L450 48 H502 L441 218 Z" fill="url(#slash-fill)" />
+          <path d="M424 188 L476 48" stroke="rgba(255,255,255,0.28)" strokeWidth="3" />
+          <path d="M410 224 L464 74" stroke="rgba(72,72,72,0.18)" strokeWidth="3" />
+
+          <path d="M510 48 H570 V145 C570 164 581 176 600 176 C620 176 632 164 632 145 V48 H692 V149 C692 200 657 223 600 223 C544 223 510 200 510 149 Z" fill="url(#ux-fill)" />
+          <path d="M590 48 H650 L693 102 L736 48 H802 L725 134 L806 222 H744 L693 167 L641 222 H576 L659 134 Z" fill="url(#ux-fill)" />
+          <g clipPath="url(#x-clip)">
+            <rect x="574" y="44" width="238" height="184" fill="url(#ux-facets)" opacity="0.92" />
+            <path d="M603 48 L646 112 L616 222" stroke="rgba(255,255,255,0.22)" strokeWidth="2.5" />
+            <path d="M688 48 L698 102 L668 222" stroke="rgba(162,72,5,0.22)" strokeWidth="2.5" />
+            <path d="M768 48 L720 116 L786 222" stroke="rgba(255,255,255,0.18)" strokeWidth="2.5" />
+          </g>
+
+        </g>
       </svg>
+      <div className="-mt-2 flex items-end justify-center gap-3 text-center leading-none md:-mt-4">
+        <span
+          className="text-[clamp(2.5rem,6.5vw,4.25rem)] font-black tracking-[-0.08em]"
+          style={{
+            background: "linear-gradient(90deg, #7e3fff 0%, #554dff 45%, #2f8eff 100%)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+          }}
+        >
+          AI診断
+        </span>
+      </div>
     </div>
   );
 }
 
-function CrystalRight() {
-  return (
-    <div className="absolute right-0 top-1/3 translate-x-1/4 opacity-50 pointer-events-none select-none" aria-hidden>
-      <svg viewBox="0 0 220 300" fill="none" className="w-44 md:w-64">
-        <path d="M110 20 L200 100 L160 260 L60 260 L20 100 Z" fill="url(#crr1)" opacity="0.4"/>
-        <path d="M110 20 L200 100 L110 60 Z" fill="url(#crr2)" opacity="0.75"/>
-        <path d="M110 20 L20 100 L110 60 Z" fill="url(#crr3)" opacity="0.55"/>
-        <path d="M200 100 L160 260 L110 60 Z" fill="url(#crr4)" opacity="0.35"/>
-        <path d="M20 100 L60 260 L110 60 Z" fill="url(#crr5)" opacity="0.25"/>
-        <defs>
-          <linearGradient id="crr1" x1="1" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#fed7aa"/><stop offset="100%" stopColor="#fb923c"/></linearGradient>
-          <linearGradient id="crr2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#ffedd5"/><stop offset="100%" stopColor="#fed7aa"/></linearGradient>
-          <linearGradient id="crr3" x1="1" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#fff7ed"/><stop offset="100%" stopColor="#ffedd5"/></linearGradient>
-          <linearGradient id="crr4" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stopColor="#fb923c"/><stop offset="100%" stopColor="#f97316"/></linearGradient>
-          <linearGradient id="crr5" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stopColor="#fed7aa"/><stop offset="100%" stopColor="#fb923c"/></linearGradient>
-        </defs>
+function StepIllustration({ step }: { step: 1 | 2 | 3 }) {
+  if (step === 1) {
+    return (
+      <svg viewBox="0 0 220 150" fill="none" className="mx-auto my-5 w-full max-w-[180px]">
+        <rect x="26" y="28" width="72" height="96" rx="8" fill="#ffffff" stroke="#bfcfff" strokeWidth="2" />
+        <rect x="26" y="28" width="72" height="16" rx="8" fill="#eef1ff" />
+        <circle cx="38" cy="36" r="3" fill="#6f61ff" opacity="0.35" />
+        <circle cx="48" cy="36" r="3" fill="#6f61ff" opacity="0.18" />
+        <rect x="36" y="55" width="52" height="36" rx="5" fill="#ffffff" stroke="#d3deff" />
+        <path d="M42 83 L54 70 L64 77 L80 61" stroke="#6f61ff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="78" cy="56" r="10" fill="#ff8a28" />
+        <text x="78" y="60" textAnchor="middle" fill="#fff" fontSize="7" fontWeight="700">α</text>
+        <circle cx="136" cy="64" r="24" fill="#ffffff" stroke="#d2dcff" strokeWidth="2" />
+        <path d="M130 64 C130 56 142 56 142 64 C142 69 138 71 136 74 C134 76 134 78 134 78" stroke="#ff8a28" strokeWidth="3" strokeLinecap="round" />
+        <circle cx="134" cy="85" r="2.5" fill="#ff8a28" />
+        <circle cx="170" cy="102" r="17" fill="#ffffff" stroke="#d7e1ff" strokeWidth="2" />
+        <path d="M164 102 L170 108 L178 94" stroke="#6f61ff" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M102 112 L130 92" stroke="#d7e1ff" strokeDasharray="3 4" />
+        <path d="M98 48 L120 56" stroke="#d7e1ff" strokeDasharray="3 4" />
+        <path d="M154 82 L165 91" stroke="#d7e1ff" strokeDasharray="3 4" />
       </svg>
-    </div>
+    );
+  }
+
+  if (step === 2) {
+    return (
+      <svg viewBox="0 0 220 150" fill="none" className="mx-auto my-5 w-full max-w-[180px]">
+        <path d="M36 114 L98 54 L182 84 L120 124 Z" fill="#fbfcff" stroke="#cfdaff" strokeWidth="2" />
+        <path d="M52 102 L102 57 L164 84 L117 114 Z" fill="#ffffff" stroke="#d3dcff" />
+        <path d="M86 74 L100 64 L100 104 L86 96 Z" fill="#7b47ff" opacity="0.95" />
+        <path d="M104 63 L118 54 L118 100 L104 104 Z" fill="#5d6dff" />
+        <path d="M122 57 L136 49 L136 92 L122 98 Z" fill="#ff8a28" />
+        <path d="M140 62 L154 55 L154 86 L140 92 Z" fill="#2f8eff" />
+        <path d="M72 110 L162 110" stroke="#d7deff" strokeDasharray="3 4" />
+        <path d="M20 120 L66 96" stroke="#d7deff" strokeDasharray="3 4" />
+        <path d="M62 130 L94 110" stroke="#d7deff" strokeDasharray="3 4" />
+        <path d="M145 34 L172 58" stroke="#d7deff" strokeDasharray="3 4" />
+        <path d="M166 108 L194 92" stroke="#d7deff" strokeDasharray="3 4" />
+        <circle cx="147" cy="44" r="17" fill="#ffffff" stroke="#d6deff" strokeWidth="2" />
+        <path d="M140 50 L146 39 L151 45 L158 34" stroke="#ff7d1f" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
+      </svg>
+    );
+  }
+
+  return (
+    <svg viewBox="0 0 220 150" fill="none" className="mx-auto my-5 w-full max-w-[180px]">
+      <rect x="74" y="18" width="72" height="108" rx="14" fill="#ffffff" stroke="#d7e0ff" strokeWidth="2" />
+      <rect x="82" y="30" width="56" height="74" rx="8" fill="#f7f8ff" />
+      <circle cx="110" cy="55" r="18" fill="none" stroke="#d8dfff" strokeWidth="5" />
+      <path d="M110 37 A18 18 0 1 1 94 64" stroke="url(#report-grad)" strokeWidth="5" strokeLinecap="round" />
+      <text x="110" y="58" textAnchor="middle" fill="#6f61ff" fontSize="12" fontWeight="700">72</text>
+      <rect x="92" y="79" width="36" height="5" rx="2.5" fill="#6f61ff" opacity="0.2" />
+      <rect x="92" y="89" width="26" height="5" rx="2.5" fill="#ff8a28" opacity="0.92" />
+      <rect x="92" y="99" width="31" height="5" rx="2.5" fill="#2f8eff" opacity="0.92" />
+      <circle cx="110" cy="116" r="4" fill="#d9e2ff" />
+      <path d="M57 44 L68 36 L70 52 Z" fill="#7f55ff" opacity="0.14" />
+      <path d="M152 90 L170 86 L164 106 Z" fill="#ff8d2f" opacity="0.16" />
+      <path d="M64 92 L78 86" stroke="#d7deff" strokeDasharray="3 4" />
+      <path d="M142 54 L160 50" stroke="#d7deff" strokeDasharray="3 4" />
+      <defs>
+        <linearGradient id="report-grad" x1="92" y1="36" x2="128" y2="74" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#8b46ff" />
+          <stop offset="1" stopColor="#2f8eff" />
+        </linearGradient>
+      </defs>
+    </svg>
   );
 }
 
-// ── Page ──────────────────────────────────────────────────────────────────────
+function FeatureIcon({ kind }: { kind: "first" | "info" | "cta" | "trust" | "nav" | "priority" }) {
+  const icons = {
+    first: (
+      <svg viewBox="0 0 80 80" fill="none" className="h-18 w-18">
+        <rect x="10" y="16" width="60" height="40" rx="7" fill="#fff" stroke="#bdd0ff" strokeWidth="2" />
+        <rect x="10" y="16" width="60" height="12" rx="7" fill="#edf2ff" />
+        <circle cx="18" cy="22" r="2" fill="#7b8dff" opacity="0.5" />
+        <circle cx="24" cy="22" r="2" fill="#7b8dff" opacity="0.25" />
+        <rect x="18" y="35" width="22" height="14" rx="3" fill="#ff8a28" />
+        <path d="M23 45 L28 40 L33 44 L38 38" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+        <rect x="45" y="34" width="16" height="5" rx="2.5" fill="#6f61ff" />
+        <rect x="45" y="43" width="12" height="4" rx="2" fill="#b7c8ff" />
+        <path d="M48 58 H61" stroke="#6f61ff" strokeWidth="2" strokeLinecap="round" />
+        <path d="M64 11 L66 6 L68 11 L73 13 L68 15 L66 20 L64 15 L59 13 Z" fill="#5d59ff" />
+        <path d="M8 58 L10 53 L12 58 L17 60 L12 62 L10 67 L8 62 L3 60 Z" fill="#78a2ff" opacity="0.8" />
+      </svg>
+    ),
+    info: (
+      <svg viewBox="0 0 80 80" fill="none" className="h-18 w-18">
+        <path d="M40 12 L52 20 V34 L40 42 L28 34 V20 Z" fill="#6c52ff" />
+        <path d="M28 20 L40 26 L52 20" stroke="#4735b4" strokeWidth="1.5" />
+        <path d="M40 26 V42" stroke="#4735b4" strokeWidth="1.5" />
+        <path d="M15 40 L27 32 V46 L15 54 Z" fill="#fff" stroke="#6796ff" strokeWidth="2" />
+        <path d="M53 32 L65 40 V54 L53 46 Z" fill="#fff" stroke="#6796ff" strokeWidth="2" />
+        <path d="M28 49 L40 42 L52 49 V63 L40 70 L28 63 Z" fill="#fff" stroke="#6796ff" strokeWidth="2" />
+        <line x1="21" y1="60" x2="21" y2="68" stroke="#6796ff" strokeWidth="1.8" />
+        <line x1="40" y1="70" x2="40" y2="76" stroke="#6796ff" strokeWidth="1.8" />
+        <line x1="59" y1="60" x2="59" y2="68" stroke="#6796ff" strokeWidth="1.8" />
+        <circle cx="21" cy="70" r="2.6" fill="#ff8a28" />
+        <circle cx="40" cy="78" r="2.6" fill="#ff8a28" />
+        <circle cx="59" cy="70" r="2.6" fill="#ff8a28" />
+      </svg>
+    ),
+    cta: (
+      <svg viewBox="0 0 80 80" fill="none" className="h-18 w-18">
+        <rect x="12" y="26" width="56" height="20" rx="10" fill="url(#cta-btn)" />
+        <text x="40" y="39" textAnchor="middle" fill="#fff" fontSize="9" fontWeight="700">ACTION</text>
+        <path d="M39 50 V66" stroke="#4f76d7" strokeWidth="2.5" strokeLinecap="round" />
+        <path d="M34 58 V70 C34 72 36 73 37.5 71.4 L39 69.8 L40.5 71.4 C42 73 44 72 44 70 V61" stroke="#4f76d7" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+        <path d="M14 16 L16 11 L18 16 L23 18 L18 20 L16 25 L14 20 L9 18 Z" fill="#6a61ff" />
+        <path d="M61 12 L62.5 8 L64 12 L68 13.5 L64 15 L62.5 19 L61 15 L57 13.5 Z" fill="#6a61ff" opacity="0.7" />
+        <defs>
+          <linearGradient id="cta-btn" x1="12" y1="26" x2="68" y2="46" gradientUnits="userSpaceOnUse">
+            <stop stopColor="#8b46ff" />
+            <stop offset="1" stopColor="#2f8eff" />
+          </linearGradient>
+        </defs>
+      </svg>
+    ),
+    trust: (
+      <svg viewBox="0 0 80 80" fill="none" className="h-18 w-18">
+        <rect x="16" y="16" width="48" height="34" rx="6" fill="#fff" stroke="#bdd0ff" strokeWidth="2" />
+        <rect x="22" y="24" width="20" height="4" rx="2" fill="#6f61ff" opacity="0.25" />
+        <rect x="22" y="32" width="12" height="4" rx="2" fill="#c5d3ff" />
+        <rect x="22" y="40" width="18" height="4" rx="2" fill="#c5d3ff" />
+        <circle cx="56" cy="56" r="12" fill="url(#trust-badge)" />
+        <path d="M50 56 L54 60 L62 51" stroke="#fff" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+        <text x="56" y="72" textAnchor="middle" fill="#ff8a28" fontSize="8" fontWeight="700">Verified</text>
+        <path d="M11 55 L13 50 L15 55 L20 57 L15 59 L13 64 L11 59 L6 57 Z" fill="#6693ff" opacity="0.8" />
+        <defs>
+          <linearGradient id="trust-badge" x1="44" y1="44" x2="68" y2="68" gradientUnits="userSpaceOnUse">
+            <stop stopColor="#8b46ff" />
+            <stop offset="1" stopColor="#2f8eff" />
+          </linearGradient>
+        </defs>
+      </svg>
+    ),
+    nav: (
+      <svg viewBox="0 0 80 80" fill="none" className="h-18 w-18">
+        <ellipse cx="40" cy="56" rx="24" ry="10" fill="#fff" stroke="#85a9ff" strokeWidth="2" />
+        <ellipse cx="40" cy="56" rx="15" ry="6" fill="#f6f9ff" stroke="#bdd0ff" />
+        <path d="M40 14 C48 14 54 20 54 28 C54 38 40 50 40 50 C40 50 26 38 26 28 C26 20 32 14 40 14 Z" fill="#fff" stroke="#6796ff" strokeWidth="2" />
+        <circle cx="40" cy="28" r="5" fill="#7e46ff" />
+        <circle cx="40" cy="56" r="3" fill="#ff8a28" />
+        <path d="M40 50 V53" stroke="#6796ff" strokeWidth="2" strokeLinecap="round" />
+      </svg>
+    ),
+    priority: (
+      <svg viewBox="0 0 80 80" fill="none" className="h-18 w-18">
+        <path d="M40 10 L62 54 H18 Z" fill="#fff" stroke="#6f90ff" strokeWidth="2" />
+        <path d="M40 10 L51 32 H29 Z" fill="#ff8a28" />
+        <path d="M29 32 H51 L56 43 H24 Z" fill="#ffffff" stroke="#6f90ff" />
+        <path d="M24 43 H56 L62 54 H18 Z" fill="#6f45ff" />
+        <path d="M13 22 H20" stroke="#6f90ff" strokeWidth="2" strokeLinecap="round" />
+        <path d="M60 18 H67" stroke="#6f90ff" strokeWidth="2" strokeLinecap="round" />
+        <path d="M66 23 V30" stroke="#6f90ff" strokeWidth="2" strokeLinecap="round" />
+        <path d="M40 10 V54" stroke="#6f90ff" strokeWidth="1.5" opacity="0.55" />
+      </svg>
+    ),
+  };
+
+  return icons[kind];
+}
+
+const steps = [
+  {
+    step: "STEP 01",
+    title: "URLを入力",
+    description: "診断したいサイトのURLを入力するだけ。難しい設定は一切不要です。",
+    illustration: <StepIllustration step={1} />,
+  },
+  {
+    step: "STEP 02",
+    title: "AIが自動診断",
+    description: "スクリーンショット取得・HTML解析・AI分析を自動実行。約10〜20秒で完了。",
+    illustration: <StepIllustration step={2} />,
+  },
+  {
+    step: "STEP 03",
+    title: "スコアと提案を確認",
+    description: "6つの観点でスコア化。最優先の改善点と具体的な対策を提案します。",
+    illustration: <StepIllustration step={3} />,
+  },
+];
+
+const features = [
+  {
+    title: "第一印象",
+    description: "訪問者が最初に受ける\nビジュアル・訴求力の評価",
+    kind: "first" as const,
+  },
+  {
+    title: "情報設計",
+    description: "コンテンツの構成・情報の\n伝わりやすさを分析",
+    kind: "info" as const,
+  },
+  {
+    title: "CTAの明確さ",
+    description: "行動喚起ボタンの\n配置・文言・視認性を評価",
+    kind: "cta" as const,
+  },
+  {
+    title: "信頼性",
+    description: "会社情報・実績・セキュリティ表示の\n充実度",
+    kind: "trust" as const,
+  },
+  {
+    title: "ナビゲーション",
+    description: "メニュー構造・導線の\n使いやすさを診断",
+    kind: "nav" as const,
+  },
+  {
+    title: "改善優先度",
+    description: "コンバージョンに\n最も影響する課題を特定",
+    kind: "priority" as const,
+  },
+];
 
 export default function Home() {
-  const features = [
-    { title: "第一印象", desc: "訪問者が最初に受けるビジュアル・訴求力 の評価", icon: <IconFirstImpression /> },
-    { title: "情報設計", desc: "コンテンツの構成・情報の伝わりやすさを分析", icon: <IconInfoArch /> },
-    { title: "CTAの明確さ", desc: "行動喚起ボタンの配置・文言・視認性を評価", icon: <IconCTA /> },
-    { title: "信頼性", desc: "会社情報・実績・セキュリティ表示の充実度", icon: <IconTrust /> },
-    { title: "ナビゲーション", desc: "メニュー構造・導線の使いやすさを診断", icon: <IconNav /> },
-    { title: "改善優先度", desc: "コンバージョンに最も影響する課題を特定", icon: <IconPriority /> },
-  ];
-
   return (
-    <>
-      {/* ── Hero ── */}
-      <section className="relative min-h-screen h-screen flex flex-col items-center justify-center overflow-hidden bg-white">
-        <ParticlesWrapper />
-        <CrystalLeft />
-        <CrystalRight />
+    <main className="bg-white text-[#2d2d2d]">
+      <section className="relative overflow-hidden bg-white">
+        <div
+          className="absolute inset-0"
+          style={{
+            background:
+              "radial-gradient(circle at top, rgba(103,122,255,0.07), transparent 42%), radial-gradient(circle at bottom left, rgba(92,78,255,0.05), transparent 30%)",
+          }}
+        />
+        <div className="absolute inset-0 opacity-95">
+          <ParticlesWrapper />
+        </div>
 
-        <div className="relative z-10 max-w-4xl mx-auto px-4 text-center">
-          <p className="text-sm text-gray-400 mb-8 tracking-wide">
-            あなたのサイトを
-            <span className="font-bold" style={{ color: "#6366f1" }}>AI</span>
-            が
-            <span className="font-bold" style={{ color: "#6366f1" }}>3分</span>
-            で診断します。
+        <div className="relative z-10 mx-auto flex min-h-[760px] max-w-6xl flex-col items-center justify-center px-6 pb-28 pt-20 text-center">
+          <p className="mb-6 text-[clamp(1.5rem,2.55vw,2.15rem)] font-black tracking-[-0.055em] text-[#2f2f2f]">
+            あなたのサイトを <span className="text-[#5568ff]">AI</span> が{" "}
+            <span className="text-[#ff7d1f]">3分</span> で診断します。
           </p>
 
-          <h1 className="mb-8 leading-tight">
-            <span
-              className="block font-black tracking-tight"
-              style={{ fontSize: "clamp(3rem, 10vw, 6rem)" }}
-            >
-              <span style={{
-                background: "linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #3730a3 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}>UI</span>
-              <span className="text-gray-300 mx-1">/</span>
-              <span style={{
-                background: "linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #3730a3 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}>UX</span>
-              {" "}
-              <span style={{
-                background: "linear-gradient(135deg, #f97316 0%, #fb923c 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}>AI</span>
-              {" "}
-              <span style={{
-                background: "linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #3730a3 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-              }}>診断</span>
-            </span>
-          </h1>
+          <HeroLogo />
 
-          <p className="text-gray-500 text-sm md:text-base mb-2 leading-relaxed">
+          <p className="mb-2 text-[clamp(1rem,1.45vw,1.18rem)] font-bold tracking-[-0.025em] text-[#383838]">
             AIによるUI/UX自動診断エンジン。定性的なデザインを、定量的なスコアで可視化。
           </p>
-          <p className="text-gray-500 text-sm md:text-base mb-10 leading-relaxed">
+          <p className="mb-11 text-[clamp(1rem,1.45vw,1.18rem)] font-bold tracking-[-0.025em] text-[#383838]">
             問題箇所の特定から実装レベルの改善提案まで、わずか3分で完了。
           </p>
 
@@ -353,67 +354,94 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── Steps ── */}
-      <section className="py-20 bg-indigo-50">
-        <div className="max-w-5xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-gray-800 mb-12">診断の流れ</h2>
-          <div className="grid md:grid-cols-3 gap-6 mb-12">
-            {[
-              { step: "01", title: "URLを入力", desc: "診断したいサイトのURLを入力するだけ。難しい設定は一切不要です。", illust: <IllustStep1 /> },
-              { step: "02", title: "AIが自動診断", desc: "スクリーンショット取得・HTML解析・AI分析を自動実行。約10〜20秒で完了。", illust: <IllustStep2 /> },
-              { step: "03", title: "スコアと提案を確認", desc: "6つの観点でスコア化。最優先の改善点と具体的な対策を提案します。", illust: <IllustStep3 /> },
-            ].map((item) => (
-              <div key={item.step} className="bg-white rounded-2xl p-6 shadow-sm text-center flex flex-col items-center">
-                <p className="text-xs font-bold tracking-widest mb-2" style={{ color: "#6366f1" }}>STEP {item.step}</p>
-                <h3 className="text-lg font-bold text-gray-800 mb-1">{item.title}</h3>
-                {item.illust}
-                <p className="text-gray-500 text-sm leading-relaxed">{item.desc}</p>
-              </div>
+      <section className="bg-[#f2f1fb] px-5 py-22 md:px-8">
+        <div className="mx-auto max-w-[1180px]">
+          <h2 className="mb-12 text-center text-[clamp(2.35rem,3.4vw,3rem)] font-black tracking-[-0.05em] text-[#272727]">
+            診断の流れ
+          </h2>
+
+          <div className="grid gap-6 md:grid-cols-3">
+            {steps.map((item) => (
+              <article
+                key={item.step}
+                className="rounded-[14px] border border-[#eceeff] bg-white px-8 py-7 text-center shadow-[0_8px_22px_rgba(91,108,176,0.08)]"
+              >
+                <div className="mx-auto mb-4 inline-flex rounded-full bg-[#f7f5ff] px-4 py-1 text-[0.86rem] font-black text-[#7266ff]">
+                  {item.step}
+                </div>
+                <h3 className="text-[1.65rem] font-black tracking-[-0.05em] text-[#242424]">
+                  {item.title}
+                </h3>
+                {item.illustration}
+                <p className="text-[0.95rem] leading-7 text-[#5d5d5d]">{item.description}</p>
+              </article>
             ))}
           </div>
-          <div className="text-center">
+
+          <div className="mt-10 text-center">
             <GradientButton href="/diagnosis">無料診断を行う</GradientButton>
           </div>
         </div>
       </section>
 
-      {/* ── Features ── */}
-      <section className="py-20 bg-white">
-        <div className="max-w-5xl mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center text-gray-800 mb-2">診断でわかること</h2>
-          <p className="text-center text-gray-400 text-sm mb-4">6つの観点でUI/UXを総合評価（100点満点）</p>
-          <p className="text-center text-gray-500 text-sm max-w-2xl mx-auto mb-12 leading-relaxed">
-            この診断は感性（視覚的な訴求力）による評価ではなく、<br className="hidden md:block"/>
+      <section className="bg-white px-5 py-22 md:px-8">
+        <div className="mx-auto max-w-[1180px]">
+          <h2 className="text-center text-[clamp(2.35rem,3.5vw,3.1rem)] font-black tracking-[-0.05em] text-[#252525]">
+            診断でわかること
+          </h2>
+          <p className="mt-3 text-center text-[1rem] font-bold text-[#767676]">
+            6つの観点でUI/UXを総合評価（100点満点）
+          </p>
+          <p className="mx-auto mt-8 max-w-4xl text-center text-[1rem] leading-8 text-[#555]">
+            この診断は感性（視覚的な訴求力）による評価ではなく、
+            <br className="hidden md:block" />
             配置、視認性、情報設計など、Webデザインの原則に基づいた論理的なUI/UX診断を行います。
           </p>
-          <div className="grid md:grid-cols-3 gap-6">
+
+          <div className="mt-14 grid gap-6 md:grid-cols-3">
             {features.map((item) => (
-              <div key={item.title} className="bg-white border border-gray-100 rounded-2xl p-6 shadow-sm hover:shadow-md transition-shadow text-center">
-                {item.icon}
-                <h3 className="font-bold text-gray-800 mt-4 mb-2">{item.title}</h3>
-                <p className="text-gray-400 text-sm leading-relaxed">{item.desc}</p>
-              </div>
+              <article
+                key={item.title}
+                className="rounded-[14px] border border-[#edf0ff] bg-white px-6 py-8 text-center shadow-[0_10px_22px_rgba(91,108,176,0.08)]"
+              >
+                <div className="mb-4 flex justify-center">
+                  <FeatureIcon kind={item.kind} />
+                </div>
+                <h3 className="text-[1.65rem] font-black tracking-[-0.05em] text-[#242424]">
+                  {item.title}
+                </h3>
+                <p className="mt-4 whitespace-pre-line text-[0.95rem] leading-7 text-[#5b5b5b]">
+                  {item.description}
+                </p>
+              </article>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── Bottom CTA ── */}
-      <section
-        className="py-20"
-        style={{ background: "linear-gradient(135deg, #bfdbfe 0%, #c7d2fe 50%, #ddd6fe 100%)" }}
-      >
-        <div className="max-w-3xl mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold text-gray-800 mb-4">今すぐ無料で診断する</h2>
-          <p className="text-gray-600 mb-10">URLを入力するだけ。診断結果は即座に表示されます。</p>
-          <GradientButton href="/diagnosis">無料診断を行う</GradientButton>
+      <section className="bg-white px-5 pb-12 pt-8 md:px-8 md:pb-16">
+        <div
+          className="mx-auto max-w-[1180px] rounded-[14px] px-6 py-18 text-center shadow-[0_18px_44px_rgba(129,163,255,0.14)]"
+          style={{
+            background:
+              "linear-gradient(90deg, rgba(183,229,255,0.9) 0%, rgba(202,226,255,0.82) 48%, rgba(252,221,245,0.88) 100%)",
+          }}
+        >
+          <h2 className="text-[clamp(2.3rem,3.4vw,3rem)] font-black tracking-[-0.05em] text-[#252525]">
+            今すぐ無料で診断する
+          </h2>
+          <p className="mt-4 text-[1rem] leading-7 text-[#4f4f4f]">
+            URLを入力するだけ。診断結果は即座に表示されます。
+          </p>
+          <div className="mt-8">
+            <GradientButton href="/diagnosis">無料診断を行う</GradientButton>
+          </div>
         </div>
       </section>
 
-      {/* ── Footer ── */}
-      <footer className="py-6 bg-white border-t border-gray-100">
-        <p className="text-center text-gray-400 text-xs">©2025 UI/UX AI診断</p>
+      <footer className="bg-[#423a6e] px-6 py-5">
+        <p className="text-center text-sm font-medium text-white/90">©2025 UI/UX AI診断</p>
       </footer>
-    </>
+    </main>
   );
 }
