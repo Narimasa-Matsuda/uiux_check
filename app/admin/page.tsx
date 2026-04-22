@@ -4,6 +4,8 @@ import { useState } from "react";
 import type { HistoryEntry } from "@/lib/history";
 import type { LeadEntry } from "@/lib/leads";
 import { SITE_TYPE_LABELS } from "@/lib/types";
+import { BrandHeader } from "@/app/components/BrandHeader";
+import { gradientButtonClassName, gradientButtonStyle } from "@/app/components/GradientButton";
 
 type Tab = "history" | "leads";
 
@@ -131,32 +133,38 @@ export default function AdminPage() {
 
   if (!authed) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-        <div className="w-full max-w-sm">
-          <div className="text-center mb-8">
-            <div className="text-4xl mb-3">🔐</div>
-            <h1 className="text-2xl font-bold text-gray-900">管理者ログイン</h1>
-            <p className="text-gray-500 text-sm mt-1">診断履歴の閲覧には認証が必要です</p>
+      <div className="min-h-screen bg-[linear-gradient(180deg,#ffffff_0%,#f6f5ff_68%,#f2f1fb_100%)]">
+        <BrandHeader maxWidthClassName="max-w-sm" />
+        <div className="flex items-center justify-center px-4 py-16">
+          <div className="w-full max-w-sm">
+            <div className="text-center mb-8">
+              <p className="mx-auto mb-4 inline-flex rounded-full bg-[#f7f5ff] px-4 py-1 text-[0.82rem] font-black text-[#7266ff]">
+                ADMIN
+              </p>
+              <h1 className="text-2xl font-bold text-gray-900">管理者ログイン</h1>
+              <p className="mt-1 text-sm text-gray-500">診断履歴の閲覧には認証が必要です</p>
+            </div>
+            <form onSubmit={handleLogin} className="rounded-[20px] border border-[#e8ecff] bg-white p-8 shadow-[0_16px_38px_rgba(104,118,189,0.12)]">
+              <label className="block text-sm font-medium text-gray-700 mb-2">管理者パスワード</label>
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder="パスワードを入力"
+                required
+                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-4 text-gray-900"
+              />
+              {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
+              <button
+                type="submit"
+                disabled={loading}
+                className={`${gradientButtonClassName} flex w-full rounded-[999px] py-3`}
+                style={gradientButtonStyle}
+              >
+                {loading ? "確認中..." : "ログイン"}
+              </button>
+            </form>
           </div>
-          <form onSubmit={handleLogin} className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
-            <label className="block text-sm font-medium text-gray-700 mb-2">管理者パスワード</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="パスワードを入力"
-              required
-              className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 mb-4 text-gray-900"
-            />
-            {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
-            <button
-              type="submit"
-              disabled={loading}
-              className="w-full bg-indigo-600 text-white py-3 rounded-xl font-semibold hover:bg-indigo-700 transition-colors disabled:opacity-50"
-            >
-              {loading ? "確認中..." : "ログイン"}
-            </button>
-          </form>
         </div>
       </div>
     );
@@ -232,14 +240,13 @@ export default function AdminPage() {
             disabled={loading || !selectedMonth}
             className="text-sm text-indigo-600 hover:text-indigo-700 font-medium disabled:opacity-50"
           >
-            {loading ? "読込中..." : "🔄 更新"}
+            {loading ? "読込中..." : "更新"}
           </button>
         </header>
 
         <main className="flex-1 overflow-y-auto px-6 py-6">
           {!selectedMonth ? (
             <div className="text-center py-20 text-gray-400">
-              <div className="text-4xl mb-3">👈</div>
               <p>月を選択してください</p>
             </div>
           ) : loading ? (
@@ -247,7 +254,6 @@ export default function AdminPage() {
           ) : tab === "history" ? (
             history.length === 0 ? (
               <div className="text-center py-20 text-gray-400">
-                <div className="text-4xl mb-3">📭</div>
                 <p>この月の履歴はありません</p>
               </div>
             ) : (
@@ -330,7 +336,6 @@ export default function AdminPage() {
             /* Leads tab */
             leads.length === 0 ? (
               <div className="text-center py-20 text-gray-400">
-                <div className="text-4xl mb-3">📭</div>
                 <p>この月のリードはありません</p>
               </div>
             ) : (

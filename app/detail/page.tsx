@@ -5,6 +5,8 @@ import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { parseDiagnosisResult, type DiagnosisResult } from "@/lib/types";
 import { SCORE_LABELS, SCORE_MAX, SITE_TYPE_LABELS } from "@/lib/types";
+import { BrandHeader } from "@/app/components/BrandHeader";
+import { gradientButtonClassName, gradientButtonStyle } from "@/app/components/GradientButton";
 
 const CONSULT_URL = process.env.NEXT_PUBLIC_CONSULT_URL ?? "/form";
 
@@ -75,21 +77,23 @@ function DetailContent() {
 
   if (status === "loading") {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <p className="text-gray-400">読み込み中...</p>
+      <div className="flex min-h-screen items-center justify-center bg-[linear-gradient(180deg,#ffffff_0%,#f6f5ff_68%,#f2f1fb_100%)]">
+        <p className="text-[#6e6e6e]">読み込み中...</p>
       </div>
     );
   }
 
   if (status === "error" || !data) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-        <div className="text-center">
-          <div className="text-5xl mb-4">🔗</div>
-          <h1 className="text-xl font-bold text-gray-900 mb-2">レポートが見つかりません</h1>
-          <p className="text-sm text-gray-500 mb-6">URLが正しいかご確認ください。</p>
-          <Link href="/diagnosis" className="text-indigo-600 hover:text-indigo-700 font-medium text-sm">
-            ← 新しく診断する
+      <div className="flex min-h-screen items-center justify-center bg-[linear-gradient(180deg,#ffffff_0%,#f6f5ff_68%,#f2f1fb_100%)] px-4">
+        <div className="rounded-[20px] border border-[#e8ecff] bg-white px-8 py-10 text-center shadow-[0_16px_38px_rgba(104,118,189,0.12)]">
+          <p className="mx-auto mb-4 inline-flex rounded-full bg-[#f7f5ff] px-4 py-1 text-[0.82rem] font-black text-[#7266ff]">
+            REPORT ERROR
+          </p>
+          <h1 className="mb-2 text-xl font-black tracking-[-0.04em] text-gray-900">レポートが見つかりません</h1>
+          <p className="mb-6 text-sm text-[#5f5f5f]">URLが正しいかご確認ください。</p>
+          <Link href="/diagnosis" className="text-sm font-medium text-[#5568ff] transition-colors hover:text-[#395ff5]">
+            新しく診断する
           </Link>
         </div>
       </div>
@@ -104,19 +108,13 @@ function DetailContent() {
   const issues = result.issues.slice(0, 3);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="py-4 px-6 bg-white border-b border-gray-100">
-        <div className="max-w-3xl mx-auto">
-          <Link href="/" className="text-lg font-bold text-indigo-600">UI/UX AI診断</Link>
-        </div>
-      </header>
+    <div className="min-h-screen bg-[linear-gradient(180deg,#ffffff_0%,#f6f5ff_68%,#f2f1fb_100%)]">
+      <BrandHeader maxWidthClassName="max-w-3xl" />
 
       <main className="max-w-3xl mx-auto px-4 py-10 space-y-6">
-
-        {/* Hero */}
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-7 flex items-start gap-6">
+        <div className="flex items-start gap-6 rounded-[20px] border border-[#e8ecff] bg-white p-7 shadow-[0_16px_38px_rgba(104,118,189,0.12)]">
           <div className="flex-1 min-w-0">
-            <h1 className="text-2xl font-bold text-gray-900 mb-1">詳細分析レポート</h1>
+            <h1 className="mb-1 text-2xl font-black tracking-[-0.05em] text-gray-900">詳細分析レポート</h1>
             {diagnosedUrl && (
               <p className="text-xs text-gray-400 truncate mb-5">{diagnosedUrl}</p>
             )}
@@ -142,9 +140,8 @@ function DetailContent() {
           )}
         </div>
 
-        {/* Score breakdown */}
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm px-7 py-6">
-          <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-5">スコア内訳</h2>
+        <div className="rounded-[20px] border border-[#e8ecff] bg-white px-7 py-6 shadow-[0_16px_38px_rgba(104,118,189,0.10)]">
+          <h2 className="mb-5 text-xs font-semibold uppercase tracking-wide text-[#8d91bd]">スコア内訳</h2>
           <div className="space-y-3">
             {(Object.keys(SCORE_LABELS) as Array<keyof typeof SCORE_LABELS>).map((key) => (
               <ScoreBar key={key} label={SCORE_LABELS[key]} value={result.scores[key]} max={SCORE_MAX[key]} />
@@ -152,9 +149,8 @@ function DetailContent() {
           </div>
         </div>
 
-        {/* Strengths */}
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm px-7 py-6">
-          <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-4">良い点</h2>
+        <div className="rounded-[20px] border border-[#e8ecff] bg-white px-7 py-6 shadow-[0_16px_38px_rgba(104,118,189,0.10)]">
+          <h2 className="mb-4 text-xs font-semibold uppercase tracking-wide text-[#8d91bd]">良い点</h2>
           <ul className="space-y-3">
             {strengths.map((s, i) => (
               <li key={i} className="flex items-start gap-3 text-sm text-gray-700">
@@ -167,9 +163,8 @@ function DetailContent() {
           </ul>
         </div>
 
-        {/* Issues */}
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm px-7 py-6">
-          <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-4">改善点</h2>
+        <div className="rounded-[20px] border border-[#e8ecff] bg-white px-7 py-6 shadow-[0_16px_38px_rgba(104,118,189,0.10)]">
+          <h2 className="mb-4 text-xs font-semibold uppercase tracking-wide text-[#8d91bd]">改善点</h2>
           <ul className="space-y-3">
             {issues.map((issue, i) => (
               <li key={i} className="flex items-start gap-3 text-sm text-gray-700">
@@ -182,35 +177,37 @@ function DetailContent() {
           </ul>
         </div>
 
-        {/* Top priority fix */}
-        <div className="bg-indigo-600 rounded-2xl p-7 text-white">
-          <p className="text-indigo-300 text-xs font-semibold uppercase tracking-wide mb-2">最優先改善</p>
-          <h2 className="text-xl font-bold mb-5">{result.top_priority_fix.title}</h2>
+        <div
+          className="rounded-[20px] p-7 text-white shadow-[0_18px_42px_rgba(84,98,199,0.24)]"
+          style={{ background: "linear-gradient(135deg, #7d42ff 0%, #3c8dff 100%)" }}
+        >
+          <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-white/75">最優先改善</p>
+          <h2 className="mb-5 text-xl font-black tracking-[-0.04em]">{result.top_priority_fix.title}</h2>
           <div className="space-y-4">
-            <div className="bg-white/10 rounded-xl p-4">
-              <p className="text-indigo-200 text-xs font-semibold uppercase tracking-wide mb-2">改善理由</p>
+            <div className="rounded-[16px] bg-white/12 p-4">
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-white/75">改善理由</p>
               <p className="text-white/90 text-sm leading-relaxed">{result.top_priority_fix.reason}</p>
             </div>
-            <div className="bg-white/10 rounded-xl p-4">
-              <p className="text-indigo-200 text-xs font-semibold uppercase tracking-wide mb-2">具体的な改善アクション</p>
+            <div className="rounded-[16px] bg-white/12 p-4">
+              <p className="mb-2 text-xs font-semibold uppercase tracking-wide text-white/75">具体的な改善アクション</p>
               <p className="text-white/90 text-sm leading-relaxed">{result.top_priority_fix.suggestion}</p>
             </div>
           </div>
         </div>
 
-        {/* CTA */}
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 text-center">
-          <h2 className="text-xl font-bold text-gray-900 mb-2">無料で改善相談する</h2>
-          <p className="text-sm text-gray-500 mb-7 leading-relaxed">
+        <div className="rounded-[20px] border border-[#e8ecff] bg-white p-8 text-center shadow-[0_16px_38px_rgba(104,118,189,0.10)]">
+          <h2 className="mb-2 text-xl font-black tracking-[-0.04em] text-gray-900">無料で改善相談する</h2>
+          <p className="mb-7 text-sm leading-relaxed text-[#5f5f5f]">
             診断結果をもとに、具体的な改善案をご提案します
           </p>
           <a
             href={CONSULT_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-indigo-600 text-white px-10 py-4 rounded-xl font-bold text-base hover:bg-indigo-700 transition-colors shadow-sm"
+            className={`${gradientButtonClassName} rounded-[999px] px-10 py-4 text-base`}
+            style={gradientButtonStyle}
           >
-            無料で改善相談する →
+            無料で改善相談する
           </a>
         </div>
 
@@ -222,8 +219,8 @@ function DetailContent() {
 export default function DetailPage() {
   return (
     <Suspense fallback={
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <p className="text-gray-400">読み込み中...</p>
+      <div className="flex min-h-screen items-center justify-center bg-[linear-gradient(180deg,#ffffff_0%,#f6f5ff_68%,#f2f1fb_100%)]">
+        <p className="text-[#6e6e6e]">読み込み中...</p>
       </div>
     }>
       <DetailContent />

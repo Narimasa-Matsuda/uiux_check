@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { parseDiagnosisResult, type DiagnosisResult } from "@/lib/types";
 import { SITE_TYPE_LABELS, STORAGE_KEY, URL_STORAGE_KEY } from "@/lib/types";
+import { BrandHeader } from "@/app/components/BrandHeader";
+import { GradientLinkButton } from "@/app/components/GradientButton";
 
 function readStoredDiagnosis(): DiagnosisResult | null {
   if (typeof window === "undefined") return null;
@@ -74,44 +76,41 @@ export default function ResultPage() {
   const topIssues = result.issues.slice(0, 2);
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="py-4 px-6 bg-white border-b border-gray-100">
-        <div className="max-w-xl mx-auto flex items-center justify-between">
-          <Link href="/" className="text-lg font-bold text-indigo-600">UI/UX AI診断</Link>
-          <Link href="/diagnosis" className="text-sm text-gray-400 hover:text-indigo-600 transition-colors">
+    <div className="min-h-screen bg-[linear-gradient(180deg,#ffffff_0%,#f6f5ff_68%,#f2f1fb_100%)]">
+      <BrandHeader
+        maxWidthClassName="max-w-xl"
+        action={
+          <Link href="/diagnosis" className="text-sm font-medium text-[#6e6e6e] transition-colors hover:text-[#5568ff]">
             別のサイトを診断
           </Link>
-        </div>
-      </header>
+        }
+      />
 
       <main className="max-w-xl mx-auto px-4 py-12 space-y-4">
         {diagUrl && (
           <p className="text-xs text-gray-400 truncate text-center">{diagUrl}</p>
         )}
 
-        {/* Score */}
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8 flex flex-col items-center text-center">
-          <p className="text-sm font-medium text-gray-400 mb-4 uppercase tracking-wide">UI/UX診断スコア</p>
+        <div className="rounded-[20px] border border-[#e8ecff] bg-white p-8 text-center shadow-[0_16px_38px_rgba(104,118,189,0.12)]">
+          <p className="mb-4 text-sm font-semibold uppercase tracking-wide text-[#8d91bd]">UI/UX診断スコア</p>
           <ScoreCircle score={result.overall_score} />
-          <div className="mt-4 flex items-center gap-2 flex-wrap justify-center">
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
             <span className={`px-4 py-1.5 rounded-full text-sm font-semibold border ${scoreLabelColor}`}>
               {scoreLabel}
             </span>
-            <span className="px-3 py-1.5 rounded-full text-xs font-medium bg-gray-100 text-gray-500">
+            <span className="rounded-full bg-[#f5f4ff] px-3 py-1.5 text-xs font-medium text-[#6b70a9]">
               {SITE_TYPE_LABELS[result.site_type]}
             </span>
           </div>
         </div>
 
-        {/* Summary */}
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm px-7 py-6">
-          <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-3">総合評価</h2>
+        <div className="rounded-[20px] border border-[#e8ecff] bg-white px-7 py-6 shadow-[0_16px_38px_rgba(104,118,189,0.10)]">
+          <h2 className="mb-3 text-xs font-semibold uppercase tracking-wide text-[#8d91bd]">総合評価</h2>
           <p className="text-gray-700 text-sm leading-relaxed">{result.summary}</p>
         </div>
 
-        {/* Top 2 issues */}
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm px-7 py-6">
-          <h2 className="text-xs font-semibold text-gray-400 uppercase tracking-wide mb-4">主な改善ポイント</h2>
+        <div className="rounded-[20px] border border-[#e8ecff] bg-white px-7 py-6 shadow-[0_16px_38px_rgba(104,118,189,0.10)]">
+          <h2 className="mb-4 text-xs font-semibold uppercase tracking-wide text-[#8d91bd]">主な改善ポイント</h2>
           <ul className="space-y-3">
             {topIssues.map((issue, i) => (
               <li key={i} className="flex items-start gap-3 text-sm text-gray-700">
@@ -124,16 +123,12 @@ export default function ResultPage() {
           </ul>
         </div>
 
-        {/* CTA */}
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm px-7 py-8 text-center">
-          <p className="text-sm text-gray-500 mb-1">詳細な分析・改善アクションを確認するには</p>
-          <p className="text-xs text-gray-400 mb-6">メールアドレスを入力するとレポートURLをお送りします</p>
-          <Link
-            href="/form"
-            className="inline-block bg-indigo-600 text-white px-10 py-4 rounded-xl font-bold text-base hover:bg-indigo-700 transition-colors shadow-sm w-full"
-          >
-            詳細レポートをメールで受け取る →
-          </Link>
+        <div className="rounded-[20px] border border-[#e8ecff] bg-white px-7 py-8 text-center shadow-[0_16px_38px_rgba(104,118,189,0.10)]">
+          <p className="mb-1 text-sm text-[#5f5f5f]">詳細な分析・改善アクションを確認するには</p>
+          <p className="mb-6 text-xs text-gray-400">メールアドレスを入力するとレポートURLをお送りします</p>
+          <GradientLinkButton href="/form" className="flex w-full rounded-[999px] py-4 text-base">
+            詳細レポートをメールで受け取る
+          </GradientLinkButton>
         </div>
       </main>
     </div>

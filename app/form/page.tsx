@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { parseDiagnosisResult, type DiagnosisResult } from "@/lib/types";
 import { SCREENSHOT_STORAGE_KEY, STORAGE_KEY, URL_STORAGE_KEY } from "@/lib/types";
+import { BrandHeader } from "@/app/components/BrandHeader";
+import { gradientButtonClassName, gradientButtonStyle } from "@/app/components/GradientButton";
 
 function readStoredDiagnosis(): DiagnosisResult | null {
   if (typeof window === "undefined") return null;
@@ -71,90 +73,87 @@ export default function FormPage() {
   if (!result) return null;
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <header className="py-4 px-6 bg-white border-b border-gray-100">
-        <div className="max-w-xl mx-auto flex items-center justify-between">
-          <Link href="/" className="text-lg font-bold text-indigo-600">UI/UX AI診断</Link>
-          <Link href="/result" className="text-sm text-gray-400 hover:text-indigo-600 transition-colors">
-            ← 診断結果に戻る
+    <div className="min-h-screen bg-[linear-gradient(180deg,#ffffff_0%,#f6f5ff_68%,#f2f1fb_100%)]">
+      <BrandHeader
+        maxWidthClassName="max-w-xl"
+        action={
+          <Link href="/result" className="text-sm font-medium text-[#6e6e6e] transition-colors hover:text-[#5568ff]">
+            診断結果に戻る
           </Link>
-        </div>
-      </header>
+        }
+      />
 
       <main className="max-w-xl mx-auto px-4 py-12">
         <div className="text-center mb-8">
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">詳細レポートをメールで受け取る</h1>
-          <p className="text-sm text-gray-500">
+          <h1 className="mb-2 text-[2rem] font-black tracking-[-0.05em] text-[#252525]">詳細レポートをメールで受け取る</h1>
+          <p className="text-sm leading-7 text-[#5f5f5f]">
             スコア内訳・改善ポイント・具体的なアクションをまとめたレポートをお送りします
           </p>
         </div>
 
-        <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-8">
-          {/* Score hint */}
-          <div className="flex items-center gap-4 mb-7 p-4 bg-indigo-50 rounded-xl">
-            <div className="text-4xl font-bold text-indigo-600 shrink-0">{result.overall_score}</div>
+        <div className="rounded-[20px] border border-[#e8ecff] bg-white p-8 shadow-[0_16px_38px_rgba(104,118,189,0.12)]">
+          <div className="mb-7 flex items-center gap-4 rounded-[18px] bg-[#f5f4ff] p-4">
+            <div className="shrink-0 text-4xl font-black text-[#5568ff]">{result.overall_score}</div>
             <div>
-              <p className="text-xs text-indigo-400 font-medium mb-0.5">あなたの診断スコア</p>
-              <p className="text-sm text-indigo-700 font-semibold">
+              <p className="mb-0.5 text-xs font-semibold text-[#7f83c4]">あなたの診断スコア</p>
+              <p className="text-sm font-semibold text-[#4955b7]">
                 詳細レポートで具体的な改善アクションをお届けします
               </p>
             </div>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
-            {/* Email — required */}
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1.5">
+              <label htmlFor="email" className="mb-1.5 block text-sm font-semibold text-[#535353]">
                 メールアドレス <span className="text-red-500">*</span>
               </label>
               <input
                 id="email" type="email" required
                 value={email} onChange={(e) => setEmail(e.target.value)}
                 placeholder="your@email.com" disabled={loading}
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-900 placeholder-gray-400 disabled:bg-gray-50"
+                className="w-full rounded-[16px] border border-[#dfe4ff] px-4 py-3.5 text-gray-900 placeholder-gray-400 outline-none transition focus:border-transparent focus:ring-2 focus:ring-[#6f76ff] disabled:bg-gray-50"
               />
             </div>
 
-            {/* Company — required */}
             <div>
-              <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-1.5">
+              <label htmlFor="company" className="mb-1.5 block text-sm font-semibold text-[#535353]">
                 会社名 <span className="text-red-500">*</span>
               </label>
               <input
                 id="company" type="text" required
                 value={company} onChange={(e) => setCompany(e.target.value)}
                 placeholder="株式会社〇〇" disabled={loading}
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-900 placeholder-gray-400 disabled:bg-gray-50"
+                className="w-full rounded-[16px] border border-[#dfe4ff] px-4 py-3.5 text-gray-900 placeholder-gray-400 outline-none transition focus:border-transparent focus:ring-2 focus:ring-[#6f76ff] disabled:bg-gray-50"
               />
             </div>
 
-            {/* Name — required */}
             <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1.5">
+              <label htmlFor="name" className="mb-1.5 block text-sm font-semibold text-[#535353]">
                 お名前 <span className="text-red-500">*</span>
               </label>
               <input
                 id="name" type="text" required
                 value={name} onChange={(e) => setName(e.target.value)}
                 placeholder="山田 太郎" disabled={loading}
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 text-gray-900 placeholder-gray-400 disabled:bg-gray-50"
+                className="w-full rounded-[16px] border border-[#dfe4ff] px-4 py-3.5 text-gray-900 placeholder-gray-400 outline-none transition focus:border-transparent focus:ring-2 focus:ring-[#6f76ff] disabled:bg-gray-50"
               />
             </div>
 
             {error && (
-              <div className="p-4 bg-red-50 border border-red-100 rounded-xl text-red-600 text-sm">
+              <div className="rounded-[16px] border border-red-100 bg-red-50 p-4 text-sm text-red-600">
                 {error}
               </div>
             )}
 
             <button
               type="submit" disabled={loading}
-              className="w-full bg-indigo-600 text-white py-4 rounded-xl font-bold text-base hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed mt-2"
+              className={`${gradientButtonClassName} mt-2 flex w-full rounded-[999px] py-4 text-base`}
+              style={gradientButtonStyle}
             >
-              {loading ? "送信中..." : "レポートURLをメールで受け取る →"}
+              {loading ? "送信中..." : "レポートURLをメールで受け取る"}
             </button>
 
-            <p className="text-xs text-gray-400 text-center">
+            <p className="text-center text-xs text-gray-400">
               ご入力いただいた情報はレポート送付・改善提案以外の目的には使用しません
             </p>
           </form>

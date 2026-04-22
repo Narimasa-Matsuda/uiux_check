@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import Link from "next/link";
 import type { AnalyzeResponse } from "@/lib/types";
 import { STORAGE_KEY, URL_STORAGE_KEY, SCREENSHOT_STORAGE_KEY } from "@/lib/types";
+import { BrandHeader } from "@/app/components/BrandHeader";
+import { gradientButtonClassName, gradientButtonStyle } from "@/app/components/GradientButton";
 
 export default function DiagnosisPage() {
   const router = useRouter();
@@ -47,31 +48,32 @@ export default function DiagnosisPage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-purple-50 flex flex-col">
-      <header className="py-4 px-6 border-b border-gray-100 bg-white/80 backdrop-blur-sm">
-        <div className="max-w-4xl mx-auto flex items-center justify-between">
-          <Link href="/" className="text-lg font-bold text-indigo-600">
-            UI/UX AI診断
-          </Link>
-        </div>
-      </header>
+    <div className="flex min-h-screen flex-col bg-[linear-gradient(180deg,#ffffff_0%,#f6f5ff_68%,#f2f1fb_100%)]">
+      <BrandHeader maxWidthClassName="max-w-5xl" />
 
       <main className="flex-1 flex items-center justify-center px-4 py-16">
         <div className="w-full max-w-xl">
           <div className="text-center mb-10">
-            <div className="text-5xl mb-4">🔍</div>
-            <h1 className="text-3xl font-bold text-gray-900 mb-3">サイトURLを入力してください</h1>
-            <p className="text-gray-500">
+            <p className="mx-auto mb-4 inline-flex rounded-full bg-[#f7f5ff] px-4 py-1">
+              <span
+                className="bg-clip-text text-[0.86rem] font-black text-transparent"
+                style={{ backgroundImage: "linear-gradient(90deg, #9a4dff 0%, #2f9bff 100%)" }}
+              >
+                START DIAGNOSIS
+              </span>
+            </p>
+            <h1 className="mb-3 text-3xl font-black tracking-[-0.05em] text-[#252525]">サイトURLを入力してください</h1>
+            <p className="text-[1rem] leading-7 text-[#5f5f5f]">
               診断したいサイトのURLを入力すると、AIが自動で診断します
             </p>
           </div>
 
           <form
             onSubmit={handleSubmit}
-            className="bg-white rounded-2xl shadow-xl p-8 border border-gray-100"
+            className="rounded-[20px] border border-[#e8ecff] bg-white p-8 shadow-[0_16px_38px_rgba(104,118,189,0.12)]"
           >
             <div className="mb-6">
-              <label htmlFor="url" className="block text-sm font-medium text-gray-700 mb-2">
+              <label htmlFor="url" className="mb-2 block text-sm font-semibold text-[#535353]">
                 診断するサイトURL
               </label>
               <input
@@ -82,12 +84,12 @@ export default function DiagnosisPage() {
                 placeholder="https://example.com"
                 required
                 disabled={loading}
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent text-gray-900 placeholder-gray-400 disabled:bg-gray-50 disabled:text-gray-400"
+                className="w-full rounded-[16px] border border-[#dfe4ff] px-4 py-3.5 text-gray-900 placeholder-gray-400 outline-none transition focus:border-transparent focus:ring-2 focus:ring-[#6f76ff] disabled:bg-gray-50 disabled:text-gray-400"
               />
             </div>
 
             {error && (
-              <div className="mb-4 p-4 bg-red-50 border border-red-100 rounded-xl text-red-600 text-sm">
+              <div className="mb-4 rounded-[16px] border border-red-100 bg-red-50 p-4 text-sm text-red-600">
                 {error}
               </div>
             )}
@@ -95,7 +97,8 @@ export default function DiagnosisPage() {
             <button
               type="submit"
               disabled={loading || !url}
-              className="w-full bg-indigo-600 text-white py-3.5 rounded-xl font-semibold text-lg hover:bg-indigo-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-3"
+              className={`${gradientButtonClassName} flex w-full gap-3 rounded-[999px] py-4 text-lg`}
+              style={gradientButtonStyle}
             >
               {loading ? (
                 <>
@@ -122,23 +125,29 @@ export default function DiagnosisPage() {
                   AIが診断中...（約10〜20秒）
                 </>
               ) : (
-                <>🚀 無料で診断する</>
+                <>無料診断を行う</>
               )}
             </button>
 
-            <p className="text-center text-xs text-gray-400 mt-4">
+            <p className="mt-4 text-center text-xs text-gray-400">
               クレジットカード不要・登録不要
             </p>
           </form>
 
           <div className="mt-6 grid grid-cols-3 gap-4 text-center">
             {[
-              { icon: "📸", label: "自動スクリーンショット" },
-              { icon: "🤖", label: "AI診断" },
-              { icon: "📊", label: "スコア&提案" },
+              { label: "自動スクリーンショット" },
+              { label: "AI診断" },
+              { label: "スコアと提案" },
             ].map((item) => (
-              <div key={item.label} className="bg-white/60 p-3 rounded-xl text-sm text-gray-600">
-                <div className="text-2xl mb-1">{item.icon}</div>
+              <div
+                key={item.label}
+                className="rounded-[16px] border border-[#e8ecff] bg-white/80 p-4 text-sm font-medium text-[#5f5f5f] shadow-[0_10px_26px_rgba(104,118,189,0.08)]"
+              >
+                <div
+                  className="mx-auto mb-3 h-2.5 w-16 rounded-full"
+                  style={{ background: "linear-gradient(90deg, #8b46ff 0%, #2f9bff 100%)" }}
+                />
                 {item.label}
               </div>
             ))}
