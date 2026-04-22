@@ -10,6 +10,9 @@
   },
   "dependencies": {
     "@sparticuz/chromium-min": "^147.0.2",
+    "@tsparticles/engine": "^3.9.1",
+    "@tsparticles/react": "^3.0.0",
+    "@tsparticles/slim": "^3.9.1",
     "cheerio": "^1.2.0",
     "ioredis": "^5.10.1",
     "next": "16.2.4",
