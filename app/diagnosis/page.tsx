@@ -1,17 +1,54 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import type { AnalyzeResponse } from "@/lib/types";
 import { STORAGE_KEY, URL_STORAGE_KEY, SCREENSHOT_STORAGE_KEY } from "@/lib/types";
 import { BrandHeader } from "@/app/components/BrandHeader";
 import { gradientButtonClassName, gradientButtonStyle } from "@/app/components/GradientButton";
 
+const PROGRESS_STAGES = [
+  { threshold: 12, label: "URLを確認しています" },
+  { threshold: 34, label: "ページ情報を取得しています" },
+  { threshold: 58, label: "スクリーンショットを解析しています" },
+  { threshold: 78, label: "AIがUI/UXを診断しています" },
+  { threshold: 92, label: "結果をまとめています" },
+] as const;
+
 export default function DiagnosisPage() {
   const router = useRouter();
   const [url, setUrl] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    if (!loading) {
+      setProgress(0);
+      return;
+    }
+
+    setProgress(6);
+
+    const interval = window.setInterval(() => {
+      setProgress((current) => {
+        if (current < 24) return current + 6;
+        if (current < 46) return current + 4;
+        if (current < 68) return current + 3;
+        if (current < 84) return current + 2;
+        if (current < 92) return current + 1;
+        return current;
+      });
+    }, 700);
+
+    return () => {
+      window.clearInterval(interval);
+    };
+  }, [loading]);
+
+  const currentStage =
+    PROGRESS_STAGES.findLast((stage) => progress >= stage.threshold)?.label
+    ?? "診断を開始しています";
 
   async function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -31,6 +68,8 @@ export default function DiagnosisPage() {
         setError(data.message || "診断できませんでした。URLを確認して再度お試しください。");
         return;
       }
+
+      setProgress(100);
 
       localStorage.setItem(STORAGE_KEY, JSON.stringify(data.result));
       localStorage.setItem(URL_STORAGE_KEY, url);
@@ -122,12 +161,31 @@ export default function DiagnosisPage() {
                       d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
                     />
                   </svg>
-                  AIが診断中...（約10〜20秒）
+                  AIが診断中...
                 </>
               ) : (
                 <>無料診断を行う</>
               )}
             </button>
+
+            {loading && (
+              <div className="mt-5 rounded-[18px] border border-[#edf0ff] bg-[#f8f8ff] px-4 py-4">
+                <div className="mb-2 flex items-center justify-between gap-4">
+                  <p className="text-sm font-semibold text-[#5058b8]">{currentStage}</p>
+                  <p className="text-sm font-black text-[#5568ff]">{progress}%</p>
+                </div>
+                <div className="h-2.5 overflow-hidden rounded-full bg-[#e4e8ff]">
+                  <div
+                    className="h-full rounded-full transition-[width] duration-500"
+                    style={{
+                      width: `${progress}%`,
+                      background: "linear-gradient(90deg, #8b46ff 0%, #2f9bff 100%)",
+                    }}
+                  />
+                </div>
+                <p className="mt-2 text-xs text-[#7b80b1]">処理状況の目安です。通常は10〜20秒ほどで完了します。</p>
+              </div>
+            )}
 
             <p className="mt-4 text-center text-xs text-gray-400">
               クレジットカード不要・登録不要
