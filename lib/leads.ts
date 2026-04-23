@@ -2,7 +2,7 @@ import fs from "fs";
 import path from "path";
 import crypto from "crypto";
 import type { DiagnosisResult } from "./types";
-import { getRedis } from "./redis";
+import { getRedis, getRedisKey } from "./redis";
 
 const LEADS_DIR = process.env.VERCEL
   ? path.join("/tmp", ".data", "leads")
@@ -60,9 +60,9 @@ export async function saveLeadEntry(entry: LeadEntry): Promise<void> {
   const redis = getRedis();
   const monthKey = toMonthKey(new Date(entry.timestamp));
   if (redis) {
-    await redis.set(`lead:${entry.token}`, JSON.stringify(entry));
-    await redis.sadd("leads:months", monthKey);
-    await redis.lpush(`leads:month:${monthKey}`, entry.token);
+    await redis.set(getRedisKey(`lead:${entry.token}`), JSON.stringify(entry));
+    await redis.sadd(getRedisKey("leads:months"), monthKey);
+    await redis.lpush(getRedisKey(`leads:month:${monthKey}`), entry.token);
   } else {
     const entries = readLeadsFile(monthKey);
     entries.unshift(entry);
@@ -73,7 +73,7 @@ export async function saveLeadEntry(entry: LeadEntry): Promise<void> {
 export async function getLeadMonths(): Promise<string[]> {
   const redis = getRedis();
   if (redis) {
-    const months = await redis.smembers("leads:months");
+    const months = await redis.smembers(getRedisKey("leads:months"));
     return months.sort((a, b) => b.localeCompare(a));
   }
   ensureLeadsDir();
@@ -87,10 +87,10 @@ export async function getLeadMonths(): Promise<string[]> {
 export async function getLeadsByMonth(monthKey: string): Promise<Omit<LeadEntry, "screenshot">[]> {
   const redis = getRedis();
   if (redis) {
-    const tokens = await redis.lrange(`leads:month:${monthKey}`, 0, -1);
+    const tokens = await redis.lrange(getRedisKey(`leads:month:${monthKey}`), 0, -1);
     const entries = await Promise.all(
       tokens.map(async (token) => {
-        const raw = await redis.get(`lead:${token}`);
+        const raw = await redis.get(getRedisKey(`lead:${token}`));
         if (!raw) return null;
         const entry: LeadEntry = JSON.parse(raw);
         const { screenshot: _, ...rest } = entry;
@@ -105,7 +105,7 @@ export async function getLeadsByMonth(monthKey: string): Promise<Omit<LeadEntry,
 export async function findLeadByToken(token: string): Promise<LeadEntry | null> {
   const redis = getRedis();
   if (redis) {
-    const raw = await redis.get(`lead:${token}`);
+    const raw = await redis.get(getRedisKey(`lead:${token}`));
     if (!raw) return null;
     return JSON.parse(raw) as LeadEntry;
   }
@@ -125,12 +125,12 @@ export async function findLeadByToken(token: string): Promise<LeadEntry | null> 
 export async function removeLeadByToken(token: string): Promise<boolean> {
   const redis = getRedis();
   if (redis) {
-    const raw = await redis.get(`lead:${token}`);
+    const raw = await redis.get(getRedisKey(`lead:${token}`));
     if (!raw) return false;
     const entry: LeadEntry = JSON.parse(raw);
     const monthKey = toMonthKey(new Date(entry.timestamp));
-    await redis.del(`lead:${token}`);
-    await redis.lrem(`leads:month:${monthKey}`, 0, token);
+    await redis.del(getRedisKey(`lead:${token}`));
+    await redis.lrem(getRedisKey(`leads:month:${monthKey}`), 0, token);
     return true;
   }
   ensureLeadsDir();

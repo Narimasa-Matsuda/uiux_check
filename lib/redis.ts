@@ -9,3 +9,9 @@ export function getRedis(): Redis | null {
   }
   return client;
 }
+
+export function getRedisKey(key: string): string {
+  const prefix = process.env.REDIS_KEY_PREFIX?.trim();
+  if (!prefix) return key;
+  return `${prefix}:${key}`;
+}
