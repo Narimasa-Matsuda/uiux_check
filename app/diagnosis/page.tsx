@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import type { AnalyzeResponse } from "@/lib/types";
 import { STORAGE_KEY, URL_STORAGE_KEY, SCREENSHOT_STORAGE_KEY } from "@/lib/types";
@@ -15,6 +16,27 @@ const PROGRESS_STAGES = [
   { threshold: 92, label: "結果をまとめています" },
 ] as const;
 
+const SUPPORT_CARDS = [
+  {
+    label: "自動スクリーンショット",
+    icon: "/images/icon_screen.svg",
+    width: 50,
+    height: 50,
+  },
+  {
+    label: "AI診断",
+    icon: "/images/icon_recognization.svg",
+    width: 49,
+    height: 50,
+  },
+  {
+    label: "スコアと提案",
+    icon: "/images/icon_suggestion.svg",
+    width: 53,
+    height: 50,
+  },
+] as const;
+
 export default function DiagnosisPage() {
   const router = useRouter();
   const [url, setUrl] = useState("");
@@ -23,12 +45,7 @@ export default function DiagnosisPage() {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    if (!loading) {
-      setProgress(0);
-      return;
-    }
-
-    setProgress(6);
+    if (!loading) return;
 
     const interval = window.setInterval(() => {
       setProgress((current) => {
@@ -53,6 +70,7 @@ export default function DiagnosisPage() {
   async function handleSubmit(e: React.SyntheticEvent<HTMLFormElement>) {
     e.preventDefault();
     setError("");
+    setProgress(6);
     setLoading(true);
 
     try {
@@ -66,6 +84,7 @@ export default function DiagnosisPage() {
 
       if (!data.success || !data.result) {
         setError(data.message || "診断できませんでした。URLを確認して再度お試しください。");
+        setProgress(0);
         return;
       }
 
@@ -81,6 +100,7 @@ export default function DiagnosisPage() {
       router.push("/result");
     } catch {
       setError("通信エラーが発生しました。しばらく経ってから再度お試しください。");
+      setProgress(0);
     } finally {
       setLoading(false);
     }
@@ -193,18 +213,18 @@ export default function DiagnosisPage() {
           </form>
 
           <div className="mt-6 grid grid-cols-3 gap-4 text-center">
-            {[
-              { label: "自動スクリーンショット" },
-              { label: "AI診断" },
-              { label: "スコアと提案" },
-            ].map((item) => (
+            {SUPPORT_CARDS.map((item) => (
               <div
                 key={item.label}
-                className="rounded-[16px] border border-[#e8ecff] bg-white/80 p-4 text-sm font-medium text-[#5f5f5f] shadow-[0_10px_26px_rgba(104,118,189,0.08)]"
+                className="flex min-h-[132px] flex-col items-center justify-center rounded-[16px] border border-[#e8ecff] bg-white/80 px-3 py-5 text-sm font-bold text-[#4f4f4f] shadow-[0_10px_26px_rgba(104,118,189,0.08)]"
               >
-                <div
-                  className="mx-auto mb-3 h-2.5 w-16 rounded-full"
-                  style={{ background: "linear-gradient(90deg, #8b46ff 0%, #2f9bff 100%)" }}
+                <Image
+                  src={item.icon}
+                  alt={item.label}
+                  width={item.width}
+                  height={item.height}
+                  unoptimized
+                  className="mb-4 h-[50px] w-auto"
                 />
                 {item.label}
               </div>
